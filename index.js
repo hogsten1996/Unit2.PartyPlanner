@@ -7,7 +7,7 @@ console.log(retrieveList());
 async function nameList(){
     const retrievedData = await retrieveList(); 
     retrievedData.data.forEach(item => {
-        addPartyToDiv(item.name +'  '+ item.email);
+        addPartyToDiv(item.name +'  '+ item.email+ '  ' + item.phone);
     });
 }
 
@@ -31,19 +31,21 @@ function addPartyToDiv(partyname){
 
 nameList();
 
+//addOneParty randomly pulls a guest and their info from the api array
 async function addOneParty() {
     const retrievedData = await retrieveList();
     if (retrievedData.data && retrievedData.data.length > 0) {
         const randomIndex = Math.floor(Math.random() * retrievedData.data.length);
         const randomGuest = retrievedData.data[randomIndex];
 
-        const nameAndEmail = randomGuest.name + ' ' + randomGuest.email;
+        const nameAndEmail = randomGuest.name + ' ' + randomGuest.email + '  ' + randomGuest.phone;
         addPartyToDiv(nameAndEmail);
     }
 }
 
 addOneParty();
 
+//this attaches a button to addOneParty
 function attachButton() {
     const nameButton = document.createElement('button');
     nameButton.textContent = 'Fetch Single Party';
